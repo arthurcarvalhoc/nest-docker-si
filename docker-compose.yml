@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:16.2
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: example123
+      POSTGRES_DB: cloudsi
+
+  web:
+    working_dir: /home/app
+    image: node:20-bullseye
+    restart: always
+    ports:
+      - 80:3000
+    volumes:
+      - .:/home/app
+    command: npm run start:dev
